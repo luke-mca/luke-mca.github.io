@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connections</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header id="header">
+        Connections | PowerPoint Night
+    </header>
+    <div id="head">
+        <div>Connections</div>
+        <div id="date">October 6, 2023</div>
+    </div>
+    <h3>
+        <img src="settings.svg" alt="settings">
+        <img src="help.svg" alt="rules">
+    </h3>
+    <div id="main">
+        <div>Create eight groups of four!</div>
+        <div id="game">
+                <div class="box">Reesie</div>
+                <div class="box">Allyson</div>
+                <div class="box">Donut</div>
+                <div class="box">Alabama</div>
+                <div class="box">My Face</div>
+                <div class="box">Jackson</div>
+                <div class="box">Eggs</div>
+                <div class="box">Rice Cake</div>
+                <div class="box">David</div>
+                <div class="box">Yogurt</div>
+                <div class="box">Shoes</div>
+                <div class="box">Wiener Dog</div>
+                <div class="box">Hank</div>
+                <div class="box">Water Bottle</div>
+                <div class="box">Kentucky</div>
+                <div class="box">Airpods</div>
+                <div class="box">Spring Break</div>
+                <div class="box">Daisy</div>
+                <div class="box">Dylan</div>
+                <div class="box">Sacramento</div>
+                <div class="box">Holly</div>
+                <div class="box">Chooch</div>
+                <div class="box">Louisville</div>
+                <div class="box">Garrett</div>
+                <div class="box">Peanut Butter</div>
+                <div class="box">Panama City Beach</div>
+                <div class="box">Jonah</div>
+                <div class="box">Chicago</div>
+                <div class="box">Bowling Green</div>
+                <div class="box">Television</div>
+                <div class="box">Pepper</div>
+                <div class="box">Cozumel</div>
+        </div>
+        <div id="mistake">Mistakes: 0</div>
+        <div>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+    <script>
+        mistakeCounter = 0;
+        let game = document.getElementById("game");
+        function clickFun() {
+            let boxes = document.getElementsByClassName("box");
+            for (let i = 0; i < boxes.length; i++) {
+                let tempBox = document.createElement("div");
+                tempBox.innerHTML = boxes[i].innerHTML;
+                tempBox.setAttribute("class", "box")
+                boxes[i].replaceWith(tempBox);
+            }
+            for (let i = 0; i < boxes.length; i++) {
+                boxes[i].addEventListener("click", () => {
+                    let count = document.getElementsByClassName("select");
+                    if (boxes[i].classList.contains("select")) {
+                        boxes[i].setAttribute("class", "box");
+                    }
+                    else if (count.length < 4) {
+                        boxes[i].setAttribute("class", "select box");
+                    }
+                })
+            }
+        }
+        clickFun();
+        let submit = document.getElementById("submit");
+        submit.addEventListener("click", () => {
+            let header = document.getElementById("header");
+            let selected = document.getElementsByClassName("select");
+            if (selected.length == 4) {
+                let incorrect = 1;
+                for(let i = 0; i < 8; i++) {
+                    let tempObj = topics[i];
+                    let t1 = 0, t2 = 0, t3 = 0, t4 = 0;
+                    for(let j=0; j<4; j++) {
+                        if (selected[j] != undefined) {
+                            if (selected[j].innerHTML == tempObj.el1) {t1 = 1}
+                            if (selected[j].innerHTML == tempObj.el2) {t2 = 1}
+                            if (selected[j].innerHTML == tempObj.el3) {t3 = 1}
+                            if (selected[j].innerHTML == tempObj.el4) {t4 = 1}
+                        }
+
+                    }
+                    if (t1==1 && t2==1 && t3==1 && t4==1) {
+                        for(let k=0; k<4; k++) {
+                            selected[0].remove();
+                        }
+                        let block = document.createElement("div");
+                        block.setAttribute("class", "block");
+                        let upper = document.createElement("div");
+                        let lower = document.createElement("div");
+                        upper.textContent = tempObj.title;
+                        lower.textContent = tempObj.el1 + ", " + tempObj.el2 + ", " + tempObj.el3 + ", " + tempObj.el4;
+                        lower.setAttribute("class", "lower");
+                        block.appendChild(upper);
+                        block.appendChild(lower);
+                        block.style.backgroundColor = tempObj.color;
+                        console.log(tempObj.color);
+                        console.log(block.style.backgroundColor);
+                        game.insertBefore(block, game.firstChild);
+                        clickFun();
+                        incorrect = 0;
+                        // tempObj.createSlide();
+                    }
+                }
+                if (incorrect == 1) {
+                    mistakeCounter += 1;
+                    let mistake = document.getElementById("mistake");
+                    mistake.textContent = ("Mistakes: "+mistakeCounter);
+                }
+            }
+        })
+        class Topic {
+            constructor(title, el1, el2, el3, el4, color) {
+                this.title = title;
+                this.el1 = el1;
+                this.el2 = el2;
+                this.el3 = el3;
+                this.el4 = el4;
+                // this.pic1 = pic1;
+                // this.pic2 = pic2;
+                // this.pic3 = pic3;
+                // this.pic4 = pic4;
+                this.color = color;
+            }
+            // createSlide() {
+            //     let header = document.getElementById("header");
+            //     let slide = document.createElement("div");
+            //     slide.setAttribute("class", "slide");
+            //     let pi1 = document.createElement("img");
+            //     pi1.setAttribute("src", this.pic1);
+            //     slide.appendChild(pi1);
+            //     let pi2 = document.createElement("img");
+            //     pi2.setAttribute("src", this.pic2);
+            //     slide.appendChild(pi2);
+            //     let pi3 = document.createElement("img");
+            //     pi3.setAttribute("src", this.pic3);
+            //     slide.appendChild(pi3);
+            //     let pi4 = document.createElement("img");
+            //     pi4.setAttribute("src", this.pic4);
+            //     slide.appendChild(pi4);
+            //     let x = document.createElement("button");
+            //     x.addEventListener("click", () => {
+            //         slide.remove();
+            //     })
+            //     slide.appendChild(x);
+            //     header.appendChild(slide);
+            // }
+        }
+        let pets = new Topic("Pet Names", "Pepper", "Daisy", "Reesie", "Hank", "rgb(249, 223, 109)")
+        let family = new Topic("______ McArthur", "Holly", "David", "Jackson", "Allyson", "rgb(160, 195, 90)")
+        let art = new Topic("Art I Have Made","Donut", "Wiener Dog", "My Face", "Television", "rgb(176, 196, 239)")
+        let food = new Topic("Food I Eat Daily", "Eggs", "Rice Cake", "Peanut Butter", "Yogurt", "rgb(186, 129, 197)")
+        let gifts = new Topic("Things My Ex Gifted Me", "Shoes", "Water Bottle", "Airpods", "Spring Break", "#FFA4FB")
+        let roommates = new Topic("Current/Previous", "Dylan", "Chooch", "Garrett", "Jonah", "#FFC04F")
+        let fandom = new Topic("Teams I Cheer For", "Chicago", "Kentucky", "Alabama", "Sacramento", "#FF4F4F")
+        let alc = new Topic("Cities Where I Have Consumed Alcohol", "Cozumel", "Panama City Beach", "Bowling Green", "Louisville", "#40AD86")
+        let topics =[pets, family, art, food, gifts, roommates, fandom, alc];
+    </script>
+</body>
+</html>
