@@ -87,6 +87,12 @@
         submit.addEventListener("click", () => {
             let header = document.getElementById("header");
             let selected = document.getElementsByClassName("select");
+            setTimeout(() => {
+                for (let p = 0; p<selected.length; p++) {
+                    selected[p].classList.remove("shake");
+                    console.log(selected[p]);
+                }
+            }, 100);
             if (selected.length == 4) {
                 let incorrect = 1;
                 for(let i = 0; i < 8; i++) {
@@ -101,7 +107,7 @@
                         }
 
                     }
-                    if (t1==1 && t2==1 && t3==1 && t4==1) {
+                    if (t1+t2+t3+t4 == 4) {
                         for(let k=0; k<4; k++) {
                             selected[0].remove();
                         }
@@ -121,6 +127,22 @@
                         clickFun();
                         incorrect = 0;
                         // tempObj.createSlide();
+                    }
+                    else if (t1+t2+t3+t4 == 3) {
+                        let head = document.getElementById("head");
+                        let oneAway = document.createElement("div");
+                        oneAway.innerHTML = "One away..."
+                        oneAway.setAttribute("class", "oneAway");
+                        head.appendChild(oneAway);
+                        setTimeout(() => {
+                            oneAway.remove();
+                        }, 1000);
+                    }
+                    if (t1+t2+t3+t4 != 4) {
+                        let shakeEl = document.getElementsByClassName("select");
+                        for (let k=0; k<shakeEl.length; k++) {
+                            shakeEl[k].setAttribute("class","select box shake");
+                        }
                     }
                 }
                 if (incorrect == 1) {
