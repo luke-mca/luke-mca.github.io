@@ -90,7 +90,6 @@
             setTimeout(() => {
                 for (let p = 0; p<selected.length; p++) {
                     selected[p].classList.remove("shake");
-                    console.log(selected[p]);
                 }
             }, 100);
             if (selected.length == 4) {
@@ -121,8 +120,6 @@
                         block.appendChild(upper);
                         block.appendChild(lower);
                         block.style.backgroundColor = tempObj.color;
-                        console.log(tempObj.color);
-                        console.log(block.style.backgroundColor);
                         let boxes = document.getElementsByClassName("box");
                         game.insertBefore(block, boxes[0]);
                         clickFun();
